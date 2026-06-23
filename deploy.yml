@@ -1,0 +1,26 @@
+---
+- name: Deploying Flask app with Docker
+  hosts: local
+  become: yes
+
+  tasks:
+         - name: stop and remove old container if running still
+           community.docker.docker_container:
+                   name: flask-app
+                   state: absent
+
+         - name: Pull latest docker image
+           community.docker.docker_image:
+                   name: my-flask-app
+                   source: local
+
+         - name: start a new container
+           community.docker.docker_container:
+                   name: flask-app
+                   image: my-flask-app
+                   state: started
+                   ports:
+                           - '5000:5000'
+                   restart_policy: always          
+                             
+                
