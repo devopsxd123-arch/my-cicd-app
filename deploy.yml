@@ -1,7 +1,7 @@
 ---
 - name: Deploying Flask app with Docker
   hosts: local
-  become: yes
+  
 
   tasks:
          - name: stop and remove old container if running still
